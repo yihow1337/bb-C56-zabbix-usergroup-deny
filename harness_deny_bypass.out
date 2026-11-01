@@ -1,0 +1,84 @@
+=== DEV-5196 DENY-bypass harness ===
+Initial permission[S][H] = DENY
+Rights: G_deny=DENY(HG), G_other=NONE
+Change: usergroup.update G_other hostgroup_rights += READ(HG)
+
+[PRE] ugset_permissions after getUgSetPermissions:
+Array
+(
+    [S] => Array
+        (
+            [HG] => Array
+                (
+                    [new] => 2
+                    [old] => -1
+                    [usrgrp_count] => 1
+                )
+
+        )
+
+)
+[PRE] db_ugset_permissions:
+Array
+(
+    [S] => Array
+        (
+            [HG] => Array
+                (
+                    [old] => 0
+                    [usrgrp_count] => 1
+                )
+
+        )
+
+)
+[PRE] after unsetUnhanged (empty means skipped):
+Array
+(
+    [S] => Array
+        (
+            [HG] => Array
+                (
+                    [new] => 2
+                    [old] => -1
+                    [usrgrp_count] => 1
+                )
+
+        )
+
+)
+[PRE] getPermissions new=
+Array
+(
+    [S] => Array
+        (
+            [H] => 2
+        )
+
+)
+[PRE] getPermissions db=
+Array
+(
+    [S] => Array
+        (
+            [H] => 0
+        )
+
+)
+[PRE] RESULT permission[S][H] = READ
+
+[FIX] after prepareUgSetPermissions ugset (empty=no write):
+Array
+(
+)
+[FIX] db:
+Array
+(
+)
+[FIX] RESULT permission[S][H] = DENY
+
+EXPECTED: DENY
+PRE-FIX (7.4.16): READ VULNERABLE (DENY wiped)
+FIXED (DEV-5196): DENY OK
+
+VERDICT: CONFIRMED DENY-bypass on 7.4.16 path; fixed path preserves DENY.

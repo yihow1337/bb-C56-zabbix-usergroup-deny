@@ -1,0 +1,10 @@
+# Asia/Taipei 2026-11-02
+sha256sum /workspace/bounty-research/src/zabbix-7.4.16.tar.gz
+# 0e2c391dc184acce8e34250e7326a51e19c8bcee31e67b8497f5526247ecd261
+sha256sum /workspace/bounty-research/src/zabbix-7.4.16/ui/include/classes/api/services/CUserGroup.php
+# 5a96a3650c948d0fa99849238f23a3c11c1766f91641b37f9c8aeb0aa6c981da
+git -C /workspace/bounty-research/src/zabbix merge-base --is-ancestor 2f2d7fb700 7.4.16  # NOT-RELEASED
+git -C /workspace/bounty-research/src/zabbix merge-base --is-ancestor fbe2904def 7.0.32  # NOT-RELEASED
+/workspace/bounty-research/tools/php/php harness_deny_bypass.php
+/workspace/bounty-research/tools/php/php harness_negatives.php
+# PHP 8.3.14 static CLI
